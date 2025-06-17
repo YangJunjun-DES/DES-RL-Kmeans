@@ -1,0 +1,20 @@
+state = 1;
+Obs = Com{state};
+action_set = [1,2,1,2,1,2,3,4];
+for i = 1 : length(action_set)
+    Action = action_set(i);   
+    Obs_ = StepFunction(P1,P2,P3,B1SUP,B2SUP,Obs,Action);
+    Obs = Obs_;
+end
+
+for j = 1: length(Com)
+       k = Com{j};
+       if isequal(Obs,k)
+           i_ = j;
+       end
+end
+
+[~,b] = max(Q_table(i_,:));
+fprintf('The next optimal action is %d\n',b);
+
+
